@@ -16,6 +16,7 @@ export class TombolaMachineComponent implements OnChanges, OnDestroy {
     @Input({ required: true }) remainingCount = 0;
     @Input({ required: true }) totalCount = 0;
     @Input({ required: true }) isDrawing = false;
+    @Input({ required: true }) isSpinning = false;
     @Input({ required: true }) isExhausted = false;
 
     @Output() drawRequested = new EventEmitter<void>();

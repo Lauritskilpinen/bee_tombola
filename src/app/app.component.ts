@@ -14,7 +14,9 @@ import { TombolaService } from './services/tombola.service';
     styleUrl: './app.component.css'
 })
 export class AppComponent implements OnDestroy {
-    private static readonly DRAW_MOMENT_MS = 980;
+    private static readonly SPIN_START_MS = 980;
+    private static readonly DRUM_SPIN_DURATION_MS = 1300;
+    private static readonly DRAW_RESULT_MS = AppComponent.SPIN_START_MS + AppComponent.DRUM_SPIN_DURATION_MS;
     private static readonly SPOTLIGHT_DURATION_MS = 1800;
     private static readonly DRAW_FINISH_BUFFER_MS = 420;
 
@@ -28,6 +30,7 @@ export class AppComponent implements OnDestroy {
     spotlightTicket: DrawnTicket | null = null;
     statusText = 'Klar til at trække';
     isDrawing = false;
+    isSpinning = false;
     isSpotlightVisible = false;
 
     private pendingTimeoutIds: number[] = [];
@@ -42,11 +45,18 @@ export class AppComponent implements OnDestroy {
         }
 
         this.isDrawing = true;
+        this.isSpinning = false;
         this.statusText = 'Trækker...';
         this.spotlightTicket = null;
         this.isSpotlightVisible = false;
 
         this.scheduleTimeout(() => {
+            this.isSpinning = true;
+        }, AppComponent.SPIN_START_MS);
+
+        this.scheduleTimeout(() => {
+            this.isSpinning = false;
+
             const drawnTicket = this.tombolaService.drawTicket();
             if (!drawnTicket) {
                 this.isDrawing = false;
@@ -63,12 +73,13 @@ export class AppComponent implements OnDestroy {
                 this.latestTicket = drawnTicket;
                 this.spotlightTicket = null;
             }, AppComponent.SPOTLIGHT_DURATION_MS);
-        }, AppComponent.DRAW_MOMENT_MS);
+        }, AppComponent.DRAW_RESULT_MS);
 
         this.scheduleTimeout(() => {
             this.isDrawing = false;
+            this.isSpinning = false;
             this.statusText = this.isExhausted ? 'Alle lodder er trukket' : 'Klar til at trække';
-        }, AppComponent.DRAW_MOMENT_MS + AppComponent.SPOTLIGHT_DURATION_MS + AppComponent.DRAW_FINISH_BUFFER_MS);
+        }, AppComponent.DRAW_RESULT_MS + AppComponent.SPOTLIGHT_DURATION_MS + AppComponent.DRAW_FINISH_BUFFER_MS);
     }
 
     onResetRequested(): void {
@@ -79,6 +90,7 @@ export class AppComponent implements OnDestroy {
         this.spotlightTicket = null;
         this.isSpotlightVisible = false;
         this.isDrawing = false;
+        this.isSpinning = false;
         this.statusText = 'Klar til at trække';
     }
 

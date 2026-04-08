@@ -64,7 +64,7 @@
 .bee {
     position: absolute;
     top: 34%;
-    right: -2%;
+    right: 9%;
     left: auto;
     width: 58px;
     height: 38px;
@@ -223,7 +223,7 @@
 }
 
 .handle.turning {
-    animation: handle-turn 0.9s ease-in-out;
+    animation: handle-turn 1.8s ease-in-out;
 }
 
 .stand {
@@ -339,8 +339,20 @@ button:not(:disabled):hover {
         transform: rotate(0deg);
     }
 
-    50% {
-        transform: rotate(22deg);
+    46% {
+        transform: rotate(0deg);
+    }
+
+    58% {
+        transform: rotate(24deg);
+    }
+
+    70% {
+        transform: rotate(3deg);
+    }
+
+    82% {
+        transform: rotate(18deg);
     }
 
     100% {
@@ -354,23 +366,23 @@ button:not(:disabled):hover {
     }
 
     22% {
-        transform: translateX(-20px) translateY(-14px) scaleX(-1) rotate(8deg);
+        transform: translateX(-18px) translateY(-14px) scaleX(-1) rotate(8deg);
     }
 
     42% {
-        transform: translateX(-42px) translateY(-4px) scaleX(-1) rotate(0deg);
+        transform: translateX(-26px) translateY(-4px) scaleX(-1) rotate(1deg);
     }
 
     54% {
-        transform: translateX(-50px) translateY(14px) scaleX(-1) rotate(-12deg);
+        transform: translateX(-30px) translateY(16px) scaleX(-1) rotate(-14deg);
     }
 
     66% {
-        transform: translateX(-38px) translateY(-4px) scaleX(-1) rotate(4deg);
+        transform: translateX(-20px) translateY(-3px) scaleX(-1) rotate(4deg);
     }
 
     78% {
-        transform: translateX(-46px) translateY(10px) scaleX(-1) rotate(-9deg);
+        transform: translateX(-28px) translateY(10px) scaleX(-1) rotate(-10deg);
     }
 
     100% {
@@ -443,7 +455,7 @@ button:not(:disabled):hover {
     }
 
     .bee {
-        right: 0;
+        right: 6%;
         left: auto;
         top: 30%;
     }
