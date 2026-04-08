@@ -47,33 +47,17 @@
     margin: 0 auto;
     padding: 0.5rem 1.4rem;
     border-radius: 16px;
-    color: #ffffff;
     font-family: "Cooper Black", "Trebuchet MS", serif;
     font-size: clamp(2.2rem, 12vw, 7.4rem);
     letter-spacing: 0.02em;
     box-shadow: 0 24px 34px rgba(29, 14, 1, 0.4);
 }
 
-.spotlight-ticket.red {
-    background: linear-gradient(170deg, #ef5f5f 0%, #af2727 100%);
-}
-
-.spotlight-ticket.blue {
-    background: linear-gradient(170deg, #5ea8ee 0%, #1f67b2 100%);
-}
-
 .spotlight-color {
     margin: 0.9rem 0 0;
     font-size: clamp(1rem, 2.5vw, 1.35rem);
     font-weight: 700;
-}
-
-.spotlight-color.red {
-    color: #8a1f1f;
-}
-
-.spotlight-color.blue {
-    color: #154f8d;
+    color: #000000;
 }
 
 .hero {

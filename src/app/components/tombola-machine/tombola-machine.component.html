@@ -1,12 +1,64 @@
 <section class="machine-card" aria-label="Tombolamaskine">
     <div class="status-strip">
-        <span class="status-text" [class.drawing]="isDrawing" [class.complete]="isExhausted">
-            {{ statusText }}
-        </span>
-        <span class="remaining-count">
-            {{ remainingCount }} / {{ totalCount }} lodder tilbage
-        </span>
+        <div class="status-main">
+            <span class="status-text" [class.drawing]="isDrawing" [class.complete]="isExhausted">
+                {{ statusText }}
+            </span>
+            <span class="remaining-count">
+                {{ remainingCount }} / {{ totalCount }} lodder tilbage
+            </span>
+        </div>
+
+        <button type="button" class="settings-button" [class.active]="isSettingsOpen" [disabled]="isDrawing"
+            (click)="onSettingsToggle()" aria-label="Aabn indstillinger">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path
+                    d="M19.14 12.94a7.43 7.43 0 0 0 .05-.94 7.43 7.43 0 0 0-.05-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.6-.22l-2.39.96a7.34 7.34 0 0 0-1.63-.94l-.36-2.54a.5.5 0 0 0-.5-.42h-3.84a.5.5 0 0 0-.5.42l-.36 2.54c-.58.23-1.12.54-1.63.94l-2.39-.96a.5.5 0 0 0-.6.22L2.71 8.84a.5.5 0 0 0 .12.64l2.03 1.58a7.43 7.43 0 0 0-.05.94c0 .32.02.63.05.94L2.83 14.52a.5.5 0 0 0-.12.64l1.92 3.32c.13.22.39.31.6.22l2.39-.96c.5.4 1.05.72 1.63.94l.36 2.54a.5.5 0 0 0 .5.42h3.84a.5.5 0 0 0 .5-.42l.36-2.54c.58-.23 1.12-.54 1.63-.94l2.39.96c.22.09.47 0 .6-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.03-1.58zM12 15.5A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7z" />
+            </svg>
+        </button>
     </div>
+
+    @if (isSettingsOpen) {
+    <section class="settings-panel" aria-label="Tombola indstillinger">
+        <div class="settings-grid">
+            <label class="settings-field">
+                <span>Antal numre per farve</span>
+                <input type="number" min="1" max="10000" [(ngModel)]="draftNumbersPerColor" name="numbersPerColor">
+            </label>
+        </div>
+
+        <div class="settings-colors">
+            <div class="settings-colors-header">
+                <h3>Farver</h3>
+                <button type="button" class="settings-add-button" (click)="onAddColor()">+ Tilføj farve</button>
+            </div>
+
+            <div class="settings-color-list">
+                @for (color of draftColors; track color.id; let i = $index) {
+                <div class="settings-color-row">
+                    <input class="settings-color-name" type="text" [(ngModel)]="color.label" [name]="'colorLabel' + i"
+                        placeholder="Farvenavn">
+                    <input class="settings-color-value" type="color" [(ngModel)]="color.hex" [name]="'colorHex' + i"
+                        aria-label="Vaelg farvekode">
+                    <button type="button" class="settings-remove-button" [disabled]="draftColors.length <= 1"
+                        (click)="onRemoveColor(i)">
+                        Fjern
+                    </button>
+                </div>
+                }
+            </div>
+        </div>
+
+        @if (settingsError) {
+        <p class="settings-error">{{ settingsError }}</p>
+        }
+
+        <div class="settings-actions">
+            <button type="button" class="settings-cancel-button" (click)="onCancelSettings()">Annuller</button>
+            <button type="button" class="settings-save-button" (click)="onSaveSettings()">Gem indstillinger</button>
+        </div>
+    </section>
+    }
 
     <div class="scene">
         <div class="bee" [class.fly-in]="isDrawing" aria-hidden="true">
@@ -24,7 +76,8 @@
                 <div class="drum-window">
                     @if (latestTicket) {
                     <div class="window-ticket" [class.reveal]="ticketRevealActive"
-                        [class.red]="latestTicket.color === 'red'" [class.blue]="latestTicket.color === 'blue'">
+                        [style.background]="latestTicket.colorHex"
+                        [style.color]="getReadableTextColor(latestTicket.colorHex)">
                         #{{ latestTicket.number }}
                     </div>
                     } @else {
@@ -42,9 +95,9 @@
         <h2>Seneste lod</h2>
         @if (latestTicket) {
         <p class="ticket-number">#{{ latestTicket.number }}</p>
-        <span class="ticket-color" [class.red]="latestTicket.color === 'red'"
-            [class.blue]="latestTicket.color === 'blue'">
-            {{ latestTicket.color === 'red' ? 'Rød' : 'Blå' }}
+        <span class="ticket-color" [style.background]="latestTicket.colorHex"
+            [style.color]="getReadableTextColor(latestTicket.colorHex)">
+            {{ latestTicket.colorLabel }}
         </span>
         } @else {
         <p class="placeholder-text">Ingen lod trukket endnu. Tryk pa Træk for at starte.</p>

@@ -5,7 +5,8 @@ A cheerful Angular app that simulates a tombola lottery machine with a bee-theme
 ## Features
 
 - Draws unique tickets from `1` to `1000`
-- Random ticket color assignment (`red` or `blue`)
+- Configurable ticket range per color (for example `1` to `500` or `1` to `2000`)
+- Configurable color set with editable color names and hex values (supports 3+ colors)
 - Animated tombola spinning and bee movement during each draw
 - Prominent latest-ticket reveal
 - Live results table with draw order, number, and color

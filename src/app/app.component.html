@@ -1,16 +1,16 @@
 <main class="app-shell">
     @if (isSpotlightVisible && spotlightTicket) {
-    <div class="draw-spotlight" aria-live="assertive" aria-label="Visning af trukket lod">
+    <div class="draw-spotlight" [style.background]="getSpotlightOverlayBackground(spotlightTicket.colorHex)"
+        aria-live="assertive" aria-label="Visning af trukket lod">
         <div class="spotlight-content">
             <p class="spotlight-label">Lod trukket</p>
             <div class="spotlight-bee" aria-hidden="true"></div>
-            <div class="spotlight-ticket" [class.red]="spotlightTicket.color === 'red'"
-                [class.blue]="spotlightTicket.color === 'blue'">
+            <div class="spotlight-ticket" [style.background]="spotlightTicket.colorHex"
+                [style.color]="getReadableTextColor(spotlightTicket.colorHex)">
                 #{{ spotlightTicket.number }}
             </div>
-            <p class="spotlight-color" [class.red]="spotlightTicket.color === 'red'"
-                [class.blue]="spotlightTicket.color === 'blue'">
-                {{ spotlightTicket.color === 'red' ? 'Rød' : 'Blå' }} lod
+            <p class="spotlight-color">
+                {{ spotlightTicket.colorLabel }} lod
             </p>
         </div>
     </div>
@@ -24,9 +24,10 @@
     <div class="content-grid">
         <section class="main-column">
             <app-tombola-machine [latestTicket]="latestTicket" [statusText]="statusText"
-                [remainingCount]="remainingCount()" [totalCount]="totalCount" [isDrawing]="isDrawing"
+                [remainingCount]="remainingCount()" [totalCount]="totalCount()" [isDrawing]="isDrawing"
                 [isSpinning]="isSpinning" [isExhausted]="isExhausted" (drawRequested)="onDrawRequested()"
-                (resetRequested)="onResetRequested()"></app-tombola-machine>
+                (resetRequested)="onResetRequested()" [settings]="settings()"
+                (settingsSaved)="onSettingsSaved($event)"></app-tombola-machine>
         </section>
 
         <aside class="results-column">

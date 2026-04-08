@@ -22,9 +22,9 @@
                     <td>{{ ticket.order }}</td>
                     <td>#{{ ticket.number }}</td>
                     <td>
-                        <span class="color-pill" [class.red]="ticket.color === 'red'"
-                            [class.blue]="ticket.color === 'blue'">
-                            {{ ticket.color === 'red' ? 'Rød' : 'Blå' }}
+                        <span class="color-pill" [style.background]="ticket.colorHex"
+                            [style.color]="getReadableTextColor(ticket.colorHex)">
+                            {{ ticket.colorLabel }}
                         </span>
                     </td>
                 </tr>

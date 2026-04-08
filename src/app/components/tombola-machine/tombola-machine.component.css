@@ -33,6 +33,13 @@
     z-index: 1;
 }
 
+.status-main {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
 .status-text {
     font-weight: 700;
     letter-spacing: 0.01em;
@@ -53,6 +60,129 @@
     border-radius: 999px;
     font-size: 0.88rem;
     background: rgba(255, 255, 255, 0.68);
+}
+
+.settings-button {
+    width: 2.35rem;
+    height: 2.35rem;
+    border-radius: 50%;
+    padding: 0;
+    border: 1px solid rgba(168, 112, 8, 0.28);
+    background: rgba(255, 255, 255, 0.8);
+    color: #623f10;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 6px 12px rgba(120, 77, 10, 0.2);
+}
+
+.settings-button svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    fill: currentColor;
+}
+
+.settings-button.active {
+    background: linear-gradient(180deg, #ffd86f 0%, #efb423 100%);
+}
+
+.settings-panel {
+    position: relative;
+    z-index: 2;
+    margin: -0.3rem 0 1rem;
+    padding: 0.85rem;
+    border-radius: 14px;
+    border: 1px solid rgba(157, 106, 10, 0.25);
+    background: rgba(255, 255, 255, 0.78);
+    box-shadow: 0 10px 20px rgba(124, 79, 10, 0.12);
+}
+
+.settings-field {
+    display: grid;
+    gap: 0.3rem;
+    font-weight: 700;
+    color: #5b3b0f;
+}
+
+.settings-field input {
+    border: 1px solid rgba(128, 89, 16, 0.3);
+    border-radius: 10px;
+    padding: 0.5rem 0.65rem;
+    font: inherit;
+}
+
+.settings-colors {
+    margin-top: 0.9rem;
+}
+
+.settings-colors-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    margin-bottom: 0.55rem;
+}
+
+.settings-add-button {
+    padding: 0.36rem 0.7rem;
+    font-size: 0.8rem;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #9dd0f2 0%, #5ea4d2 100%);
+    color: #ffffff;
+    box-shadow: none;
+}
+
+.settings-color-list {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.settings-color-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.settings-color-name {
+    width: 100%;
+    border: 1px solid rgba(128, 89, 16, 0.3);
+    border-radius: 10px;
+    padding: 0.46rem 0.6rem;
+    font: inherit;
+}
+
+.settings-color-value {
+    width: 2.2rem;
+    height: 2.2rem;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+}
+
+.settings-error {
+    margin: 0.7rem 0 0;
+    color: #8b2525;
+    font-weight: 700;
+    font-size: 0.86rem;
+}
+
+.settings-actions {
+    margin-top: 0.85rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.settings-cancel-button {
+    background: #f3edd8;
+    color: #4d391f;
+}
+
+.settings-save-button {
+    background: linear-gradient(180deg, #ffcf49 0%, #e8a81d 100%);
+    color: #3f2808;
 }
 
 .scene {
@@ -180,19 +310,10 @@
 .window-ticket {
     min-width: 80px;
     text-align: center;
-    color: #ffffff;
     padding: 0.45rem 0.5rem;
     border-radius: 10px;
     transform: scale(0.65);
     opacity: 0;
-}
-
-.window-ticket.red {
-    background: linear-gradient(160deg, #e86161 0%, #be2f2f 100%);
-}
-
-.window-ticket.blue {
-    background: linear-gradient(160deg, #509eeb 0%, #236fbb 100%);
 }
 
 .window-ticket.reveal {
@@ -269,16 +390,7 @@
     min-width: 90px;
     padding: 0.3rem 0.65rem;
     border-radius: 999px;
-    color: #ffffff;
     font-weight: 700;
-}
-
-.ticket-color.red {
-    background: #cc3a3a;
-}
-
-.ticket-color.blue {
-    background: #2573be;
 }
 
 .latest-ticket.reveal {
@@ -462,5 +574,14 @@ button:not(:disabled):hover {
 
     .handle {
         right: -6px;
+    }
+
+    .settings-color-row {
+        grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .settings-remove-button {
+        grid-column: 1 / -1;
+        justify-self: end;
     }
 }

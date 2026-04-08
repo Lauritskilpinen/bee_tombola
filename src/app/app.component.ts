@@ -3,7 +3,7 @@ import { Component, OnDestroy, inject } from '@angular/core';
 
 import { ResultsTableComponent } from './components/results-table/results-table.component';
 import { TombolaMachineComponent } from './components/tombola-machine/tombola-machine.component';
-import { DrawnTicket } from './models/ticket.model';
+import { DrawnTicket, TombolaSettings } from './models/ticket.model';
 import { TombolaService } from './services/tombola.service';
 
 @Component({
@@ -23,6 +23,7 @@ export class AppComponent implements OnDestroy {
     private readonly tombolaService = inject(TombolaService);
 
     readonly drawnTickets = this.tombolaService.drawnTickets;
+    readonly settings = this.tombolaService.settings;
     readonly remainingCount = this.tombolaService.remainingCount;
     readonly totalCount = this.tombolaService.totalCount;
 
@@ -86,12 +87,64 @@ export class AppComponent implements OnDestroy {
         this.clearPendingTimeouts();
         this.tombolaService.reset();
 
+        this.resetVisualState();
+    }
+
+    onSettingsSaved(settings: TombolaSettings): void {
+        this.clearPendingTimeouts();
+        this.tombolaService.updateSettings(settings);
+
+        this.resetVisualState();
+    }
+
+    getReadableTextColor(hexColor: string): string {
+        const hex = (hexColor ?? '').replace('#', '');
+        if (!/^[0-9a-fA-F]{6}$/.test(hex)) {
+            return '#ffffff';
+        }
+
+        const red = parseInt(hex.slice(0, 2), 16);
+        const green = parseInt(hex.slice(2, 4), 16);
+        const blue = parseInt(hex.slice(4, 6), 16);
+        const luminance = (red * 299 + green * 587 + blue * 114) / 1000;
+
+        return luminance > 155 ? '#1f1a14' : '#ffffff';
+    }
+
+    getSpotlightOverlayBackground(hexColor: string): string {
+        const rgb = this.hexToRgb(hexColor);
+        if (!rgb) {
+            return 'radial-gradient(circle at 40% 30%, rgba(255, 241, 185, 0.95) 0%, rgba(255, 230, 130, 0.82) 34%, rgba(35, 15, 0, 0.8) 100%)';
+        }
+
+        const darkRed = Math.max(0, rgb.red - 75);
+        const darkGreen = Math.max(0, rgb.green - 75);
+        const darkBlue = Math.max(0, rgb.blue - 75);
+
+        return `radial-gradient(circle at 40% 30%, rgba(${rgb.red}, ${rgb.green}, ${rgb.blue}, 0.96) 0%, rgba(${rgb.red}, ${rgb.green}, ${rgb.blue}, 0.88) 36%, rgba(${darkRed}, ${darkGreen}, ${darkBlue}, 0.9) 100%)`;
+    }
+
+    private resetVisualState(): void {
+
         this.latestTicket = null;
         this.spotlightTicket = null;
         this.isSpotlightVisible = false;
         this.isDrawing = false;
         this.isSpinning = false;
         this.statusText = 'Klar til at trække';
+    }
+
+    private hexToRgb(hexColor: string): { red: number; green: number; blue: number } | null {
+        const hex = (hexColor ?? '').replace('#', '');
+        if (!/^[0-9a-fA-F]{6}$/.test(hex)) {
+            return null;
+        }
+
+        return {
+            red: parseInt(hex.slice(0, 2), 16),
+            green: parseInt(hex.slice(2, 4), 16),
+            blue: parseInt(hex.slice(4, 6), 16)
+        };
     }
 
     ngOnDestroy(): void {
