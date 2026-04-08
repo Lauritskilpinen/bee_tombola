@@ -4,7 +4,7 @@
             {{ statusText }}
         </span>
         <span class="remaining-count">
-            {{ remainingCount }} / {{ totalCount }} billetter tilbage
+            {{ remainingCount }} / {{ totalCount }} lodder tilbage
         </span>
     </div>
 
@@ -39,7 +39,7 @@
     </div>
 
     <div class="latest-ticket" [class.reveal]="ticketRevealActive">
-        <h2>Seneste billet</h2>
+        <h2>Seneste lod</h2>
         @if (latestTicket) {
         <p class="ticket-number">#{{ latestTicket.number }}</p>
         <span class="ticket-color" [class.red]="latestTicket.color === 'red'"
@@ -47,7 +47,7 @@
             {{ latestTicket.color === 'red' ? 'Rød' : 'Blå' }}
         </span>
         } @else {
-        <p class="placeholder-text">Ingen billet trukket endnu. Tryk pa Træk for at starte.</p>
+        <p class="placeholder-text">Ingen lod trukket endnu. Tryk pa Træk for at starte.</p>
         }
     </div>
 

@@ -64,14 +64,15 @@
 .bee {
     position: absolute;
     top: 34%;
-    left: 6%;
+    right: -2%;
+    left: auto;
     width: 58px;
     height: 38px;
     border-radius: 56% 45% 50% 58%;
     background: linear-gradient(90deg, #ffd44d 0 24%, #16130f 24% 34%, #ffd44d 34% 56%, #16130f 56% 67%, #ffd44d 67% 100%);
     box-shadow: 0 10px 20px rgba(50, 30, 8, 0.25);
     z-index: 4;
-    transform: translateX(0) translateY(0) rotate(-5deg);
+    transform: translateX(0) translateY(0) scaleX(-1) rotate(6deg);
 }
 
 .bee.fly-in {
@@ -349,27 +350,31 @@ button:not(:disabled):hover {
 
 @keyframes bee-handle-pull {
     0% {
-        transform: translateX(0) translateY(0) rotate(-5deg);
+        transform: translateX(0) translateY(0) scaleX(-1) rotate(6deg);
     }
 
-    24% {
-        transform: translateX(72px) translateY(-16px) rotate(4deg);
+    22% {
+        transform: translateX(-20px) translateY(-14px) scaleX(-1) rotate(8deg);
     }
 
-    50% {
-        transform: translateX(188px) translateY(-2px) rotate(-9deg);
+    42% {
+        transform: translateX(-42px) translateY(-4px) scaleX(-1) rotate(0deg);
     }
 
-    62% {
-        transform: translateX(208px) translateY(10px) rotate(-16deg);
+    54% {
+        transform: translateX(-50px) translateY(14px) scaleX(-1) rotate(-12deg);
     }
 
-    72% {
-        transform: translateX(184px) translateY(-2px) rotate(2deg);
+    66% {
+        transform: translateX(-38px) translateY(-4px) scaleX(-1) rotate(4deg);
+    }
+
+    78% {
+        transform: translateX(-46px) translateY(10px) scaleX(-1) rotate(-9deg);
     }
 
     100% {
-        transform: translateX(0) translateY(0) rotate(-5deg);
+        transform: translateX(0) translateY(0) scaleX(-1) rotate(6deg);
     }
 }
 
@@ -438,7 +443,8 @@ button:not(:disabled):hover {
     }
 
     .bee {
-        left: 2%;
+        right: 0;
+        left: auto;
         top: 30%;
     }
 

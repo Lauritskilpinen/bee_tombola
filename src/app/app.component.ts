@@ -50,7 +50,7 @@ export class AppComponent implements OnDestroy {
             const drawnTicket = this.tombolaService.drawTicket();
             if (!drawnTicket) {
                 this.isDrawing = false;
-                this.statusText = 'Alle billetter er trukket';
+                this.statusText = 'Alle lodder er trukket';
                 return;
             }
 
@@ -67,7 +67,7 @@ export class AppComponent implements OnDestroy {
 
         this.scheduleTimeout(() => {
             this.isDrawing = false;
-            this.statusText = this.isExhausted ? 'Alle billetter er trukket' : 'Klar til at trække';
+            this.statusText = this.isExhausted ? 'Alle lodder er trukket' : 'Klar til at trække';
         }, AppComponent.DRAW_MOMENT_MS + AppComponent.SPOTLIGHT_DURATION_MS + AppComponent.DRAW_FINISH_BUFFER_MS);
     }
 
