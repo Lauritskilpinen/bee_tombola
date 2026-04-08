@@ -4,9 +4,6 @@
             <span class="status-text" [class.drawing]="isDrawing" [class.complete]="isExhausted">
                 {{ statusText }}
             </span>
-            <span class="remaining-count">
-                {{ remainingCount }} / {{ totalCount }} lodder tilbage
-            </span>
         </div>
 
         <button type="button" class="settings-button" [class.active]="isSettingsOpen" [disabled]="isDrawing"

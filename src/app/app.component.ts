@@ -84,6 +84,11 @@ export class AppComponent implements OnDestroy {
     }
 
     onResetRequested(): void {
+        const shouldReset = window.confirm('Vil du nulstille?');
+        if (!shouldReset) {
+            return;
+        }
+
         this.clearPendingTimeouts();
         this.tombolaService.reset();
 
