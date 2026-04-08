@@ -1,0 +1,31 @@
+:root {
+    --honey-50: #fff8d6;
+    --honey-100: #ffefb0;
+    --honey-300: #ffd84e;
+    --honey-500: #f6bc1e;
+    --honey-700: #c6840a;
+    --ink: #2f1f12;
+    --sky: #dbf4ff;
+    --blue-ticket: #2d7dd2;
+    --red-ticket: #d64242;
+    --surface: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+}
+
+body {
+    color: var(--ink);
+    font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+    background:
+        radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.65) 0, rgba(255, 255, 255, 0) 40%),
+        radial-gradient(circle at 82% 2%, rgba(255, 255, 255, 0.5) 0, rgba(255, 255, 255, 0) 35%),
+        linear-gradient(180deg, var(--sky) 0%, var(--honey-50) 52%, #fdfde9 100%);
+}

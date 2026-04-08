@@ -1,0 +1,36 @@
+<section class="results-card" aria-label="Drawn ticket results">
+    <div class="results-header">
+        <h2>Draw Results</h2>
+        <span class="count-pill">{{ drawnTickets.length }}</span>
+    </div>
+
+    @if (drawnTickets.length === 0) {
+    <p class="empty-state">No tickets drawn yet.</p>
+    } @else {
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">Order</th>
+                    <th scope="col">Number</th>
+                    <th scope="col">Color</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (ticket of drawnTickets; track trackByOrder($index, ticket)) {
+                <tr>
+                    <td>{{ ticket.order }}</td>
+                    <td>#{{ ticket.number }}</td>
+                    <td>
+                        <span class="color-pill" [class.red]="ticket.color === 'red'"
+                            [class.blue]="ticket.color === 'blue'">
+                            {{ ticket.color | titlecase }}
+                        </span>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    }
+</section>

@@ -1,0 +1,67 @@
+<section class="machine-card" aria-label="Tombola machine">
+    <div class="status-strip">
+        <span class="status-text" [class.drawing]="isDrawing" [class.complete]="isExhausted">
+            {{ statusText }}
+        </span>
+        <span class="remaining-count">
+            {{ remainingCount }} / {{ totalCount }} tickets left
+        </span>
+    </div>
+
+    <div class="scene">
+        <div class="bee" [class.fly-in]="isDrawing" aria-hidden="true">
+            <span class="wing left"></span>
+            <span class="wing right"></span>
+            <span class="eye"></span>
+            <span class="stripe stripe-one"></span>
+            <span class="stripe stripe-two"></span>
+            <span class="stinger"></span>
+            @if (beeTicket) {
+            <span class="bee-ticket" [class.red]="beeTicket.color === 'red'" [class.blue]="beeTicket.color === 'blue'">
+                #{{ beeTicket.number }}
+            </span>
+            }
+        </div>
+
+        <div class="tombola" aria-live="polite">
+            <div class="drum" [class.spinning]="isDrawing">
+                <div class="drum-grille"></div>
+                <div class="drum-window">
+                    @if (latestTicket) {
+                    <div class="window-ticket" [class.reveal]="ticketRevealActive"
+                        [class.red]="latestTicket.color === 'red'" [class.blue]="latestTicket.color === 'blue'">
+                        #{{ latestTicket.number }}
+                    </div>
+                    } @else {
+                    <div class="window-placeholder">?</div>
+                    }
+                </div>
+            </div>
+
+            <div class="handle" [class.turning]="isDrawing"></div>
+            <div class="stand"></div>
+        </div>
+    </div>
+
+    <div class="latest-ticket" [class.reveal]="ticketRevealActive">
+        <h2>Latest Ticket</h2>
+        @if (latestTicket) {
+        <p class="ticket-number">#{{ latestTicket.number }}</p>
+        <span class="ticket-color" [class.red]="latestTicket.color === 'red'"
+            [class.blue]="latestTicket.color === 'blue'">
+            {{ latestTicket.color | titlecase }}
+        </span>
+        } @else {
+        <p class="placeholder-text">No ticket drawn yet. Press Draw to begin.</p>
+        }
+    </div>
+
+    <div class="controls" aria-label="Draw controls">
+        <button type="button" class="draw-button" [disabled]="drawDisabled" (click)="onDrawClick()">
+            Draw
+        </button>
+        <button type="button" class="reset-button" [disabled]="resetDisabled" (click)="onResetClick()">
+            Reset
+        </button>
+    </div>
+</section>

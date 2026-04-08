@@ -1,0 +1,36 @@
+<main class="app-shell">
+    @if (isSpotlightVisible && spotlightTicket) {
+    <div class="draw-spotlight" aria-live="assertive" aria-label="Drawn ticket reveal">
+        <div class="spotlight-content">
+            <p class="spotlight-label">Bee Draw Complete</p>
+            <div class="spotlight-bee" aria-hidden="true"></div>
+            <div class="spotlight-ticket" [class.red]="spotlightTicket.color === 'red'"
+                [class.blue]="spotlightTicket.color === 'blue'">
+                #{{ spotlightTicket.number }}
+            </div>
+            <p class="spotlight-color" [class.red]="spotlightTicket.color === 'red'"
+                [class.blue]="spotlightTicket.color === 'blue'">
+                {{ spotlightTicket.color | titlecase }} ticket
+            </p>
+        </div>
+    </div>
+    }
+
+    <header class="hero">
+        <h1>Biavler Tombola</h1>
+        <p>Spin the hive drum and let the bee pick your lucky ticket.</p>
+    </header>
+
+    <div class="content-grid">
+        <section class="main-column">
+            <app-tombola-machine [latestTicket]="latestTicket" [statusText]="statusText"
+                [remainingCount]="remainingCount()" [totalCount]="totalCount" [isDrawing]="isDrawing"
+                [isExhausted]="isExhausted" [beeTicket]="spotlightTicket" (drawRequested)="onDrawRequested()"
+                (resetRequested)="onResetRequested()"></app-tombola-machine>
+        </section>
+
+        <aside class="results-column">
+            <app-results-table [drawnTickets]="drawnTickets()"></app-results-table>
+        </aside>
+    </div>
+</main>
