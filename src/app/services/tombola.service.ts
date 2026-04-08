@@ -6,7 +6,9 @@ import { DrawnTicket, Ticket } from '../models/ticket.model';
     providedIn: 'root'
 })
 export class TombolaService {
-    private static readonly TOTAL_TICKETS = 1000;
+    private static readonly NUMBERS_PER_COLOR = 1000;
+    private static readonly COLORS: Ticket['color'][] = ['red', 'blue'];
+    private static readonly TOTAL_TICKETS = TombolaService.NUMBERS_PER_COLOR * TombolaService.COLORS.length;
 
     private readonly availableTicketsState = signal<Ticket[]>([]);
     private readonly drawnTicketsState = signal<DrawnTicket[]>([]);
@@ -47,9 +49,14 @@ export class TombolaService {
     }
 
     private generateTickets(): Ticket[] {
-        return Array.from({ length: TombolaService.TOTAL_TICKETS }, (_, index) => ({
-            number: index + 1,
-            color: Math.random() < 0.5 ? 'red' : 'blue'
-        }));
+        const tickets: Ticket[] = [];
+
+        for (let number = 1; number <= TombolaService.NUMBERS_PER_COLOR; number += 1) {
+            for (const color of TombolaService.COLORS) {
+                tickets.push({ number, color });
+            }
+        }
+
+        return tickets;
     }
 }
