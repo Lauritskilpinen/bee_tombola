@@ -15,7 +15,7 @@ import { TombolaService } from './services/tombola.service';
 })
 export class AppComponent implements OnDestroy {
     private static readonly DRAW_MOMENT_MS = 980;
-    private static readonly SPOTLIGHT_DURATION_MS = 1200;
+    private static readonly SPOTLIGHT_DURATION_MS = 1800;
     private static readonly DRAW_FINISH_BUFFER_MS = 420;
 
     private readonly tombolaService = inject(TombolaService);
@@ -26,7 +26,7 @@ export class AppComponent implements OnDestroy {
 
     latestTicket: DrawnTicket | null = null;
     spotlightTicket: DrawnTicket | null = null;
-    statusText = 'Ready to draw';
+    statusText = 'Klar til at trække';
     isDrawing = false;
     isSpotlightVisible = false;
 
@@ -42,7 +42,7 @@ export class AppComponent implements OnDestroy {
         }
 
         this.isDrawing = true;
-        this.statusText = 'Drawing...';
+        this.statusText = 'Trækker...';
         this.spotlightTicket = null;
         this.isSpotlightVisible = false;
 
@@ -50,13 +50,13 @@ export class AppComponent implements OnDestroy {
             const drawnTicket = this.tombolaService.drawTicket();
             if (!drawnTicket) {
                 this.isDrawing = false;
-                this.statusText = 'All tickets have been drawn';
+                this.statusText = 'Alle billetter er trukket';
                 return;
             }
 
             this.spotlightTicket = drawnTicket;
             this.isSpotlightVisible = true;
-            this.statusText = 'Ticket drawn!';
+            this.statusText = 'Håndtaget er trukket!';
 
             this.scheduleTimeout(() => {
                 this.isSpotlightVisible = false;
@@ -67,7 +67,7 @@ export class AppComponent implements OnDestroy {
 
         this.scheduleTimeout(() => {
             this.isDrawing = false;
-            this.statusText = this.isExhausted ? 'All tickets have been drawn' : 'Ready to draw';
+            this.statusText = this.isExhausted ? 'Alle billetter er trukket' : 'Klar til at trække';
         }, AppComponent.DRAW_MOMENT_MS + AppComponent.SPOTLIGHT_DURATION_MS + AppComponent.DRAW_FINISH_BUFFER_MS);
     }
 
@@ -79,7 +79,7 @@ export class AppComponent implements OnDestroy {
         this.spotlightTicket = null;
         this.isSpotlightVisible = false;
         this.isDrawing = false;
-        this.statusText = 'Ready to draw';
+        this.statusText = 'Klar til at trække';
     }
 
     ngOnDestroy(): void {

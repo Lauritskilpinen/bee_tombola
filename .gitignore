@@ -1,0 +1,14 @@
+/dist
+/tmp
+/out-tsc
+/node_modules
+
+# IDE
+/.idea
+/.vscode/*
+!/.vscode/extensions.json
+!/.vscode/tasks.json
+
+# Misc
+/.angular
+*.log

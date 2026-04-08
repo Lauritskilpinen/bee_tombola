@@ -12,8 +12,7 @@ import { DrawnTicket } from '../../models/ticket.model';
 })
 export class TombolaMachineComponent implements OnChanges, OnDestroy {
     @Input({ required: true }) latestTicket: DrawnTicket | null = null;
-    @Input({ required: true }) beeTicket: DrawnTicket | null = null;
-    @Input({ required: true }) statusText = 'Ready to draw';
+    @Input({ required: true }) statusText = 'Klar til at traekke';
     @Input({ required: true }) remainingCount = 0;
     @Input({ required: true }) totalCount = 0;
     @Input({ required: true }) isDrawing = false;

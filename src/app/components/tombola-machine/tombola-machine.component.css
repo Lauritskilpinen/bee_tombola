@@ -75,7 +75,7 @@
 }
 
 .bee.fly-in {
-    animation: bee-flight 1.6s ease-in-out forwards;
+    animation: bee-handle-pull 1.8s ease-in-out forwards;
 }
 
 .wing {
@@ -117,29 +117,6 @@
     height: 6px;
     clip-path: polygon(0 50%, 100% 0, 100% 100%);
     background: #0e0e0e;
-}
-
-.bee-ticket {
-    position: absolute;
-    right: -26px;
-    top: 18px;
-    min-width: 62px;
-    text-align: center;
-    padding: 0.16rem 0.35rem;
-    border-radius: 8px;
-    color: #ffffff;
-    font-size: 0.62rem;
-    font-weight: 700;
-    box-shadow: 0 6px 10px rgba(40, 23, 5, 0.28);
-    animation: bee-ticket-pop 0.3s ease-out;
-}
-
-.bee-ticket.red {
-    background: #c73434;
-}
-
-.bee-ticket.blue {
-    background: #2a74bb;
 }
 
 .tombola {
@@ -370,17 +347,25 @@ button:not(:disabled):hover {
     }
 }
 
-@keyframes bee-flight {
+@keyframes bee-handle-pull {
     0% {
         transform: translateX(0) translateY(0) rotate(-5deg);
     }
 
-    20% {
-        transform: translateX(32px) translateY(-12px) rotate(8deg);
+    24% {
+        transform: translateX(72px) translateY(-16px) rotate(4deg);
     }
 
-    58% {
-        transform: translateX(140px) translateY(8px) rotate(-7deg);
+    50% {
+        transform: translateX(188px) translateY(-2px) rotate(-9deg);
+    }
+
+    62% {
+        transform: translateX(208px) translateY(10px) rotate(-16deg);
+    }
+
+    72% {
+        transform: translateX(184px) translateY(-2px) rotate(2deg);
     }
 
     100% {
@@ -444,18 +429,6 @@ button:not(:disabled):hover {
 
     100% {
         opacity: 0.65;
-    }
-}
-
-@keyframes bee-ticket-pop {
-    0% {
-        opacity: 0;
-        transform: scale(0.6);
-    }
-
-    100% {
-        opacity: 1;
-        transform: scale(1);
     }
 }
 

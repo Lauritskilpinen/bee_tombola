@@ -1,19 +1,19 @@
-<section class="results-card" aria-label="Drawn ticket results">
+<section class="results-card" aria-label="Resultater for trukne billetter">
     <div class="results-header">
-        <h2>Draw Results</h2>
+        <h2>Resultater</h2>
         <span class="count-pill">{{ drawnTickets.length }}</span>
     </div>
 
     @if (drawnTickets.length === 0) {
-    <p class="empty-state">No tickets drawn yet.</p>
+    <p class="empty-state">Ingen billetter trukket endnu.</p>
     } @else {
     <div class="table-wrap">
         <table>
             <thead>
                 <tr>
-                    <th scope="col">Order</th>
-                    <th scope="col">Number</th>
-                    <th scope="col">Color</th>
+                    <th scope="col">Raekkefoelge</th>
+                    <th scope="col">Nummer</th>
+                    <th scope="col">Farve</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,7 +24,7 @@
                     <td>
                         <span class="color-pill" [class.red]="ticket.color === 'red'"
                             [class.blue]="ticket.color === 'blue'">
-                            {{ ticket.color | titlecase }}
+                            {{ ticket.color === 'red' ? 'Rød' : 'Blå' }}
                         </span>
                     </td>
                 </tr>
