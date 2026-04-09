@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnChanges, OnDestroy, Output, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { DrawnTicket, TicketColorOption, TombolaSettings } from '../../models/ticket.model';
@@ -70,6 +70,17 @@ export class TombolaMachineComponent implements OnChanges, OnDestroy {
         }
 
         this.drawRequested.emit();
+    }
+
+    @HostListener('document:keydown', ['$event'])
+    onDocumentKeydown(event: KeyboardEvent): void {
+        const isSpaceKey = event.code === 'Space' || event.key === ' ';
+        if (!isSpaceKey || event.defaultPrevented || event.repeat || this.isTextInputTarget(event.target)) {
+            return;
+        }
+
+        event.preventDefault();
+        this.onDrawClick();
     }
 
     onResetClick(): void {
@@ -228,5 +239,18 @@ export class TombolaMachineComponent implements OnChanges, OnDestroy {
     private pickDefaultColor(index: number): string {
         const palette = ['#d04a4a', '#4c8ed8', '#2f8c4f', '#ce8a2e', '#7d57c6', '#1598a8'];
         return palette[index % palette.length];
+    }
+
+    private isTextInputTarget(target: EventTarget | null): boolean {
+        if (!(target instanceof HTMLElement)) {
+            return false;
+        }
+
+        if (target.isContentEditable) {
+            return true;
+        }
+
+        const tagName = target.tagName.toLowerCase();
+        return tagName === 'input' || tagName === 'textarea' || tagName === 'select';
     }
 }

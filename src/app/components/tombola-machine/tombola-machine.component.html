@@ -70,16 +70,16 @@
         <div class="tombola" aria-live="polite">
             <div class="drum" [class.spinning]="isSpinning">
                 <div class="drum-grille"></div>
-                <div class="drum-window">
-                    @if (latestTicket) {
-                    <div class="window-ticket" [class.reveal]="ticketRevealActive"
-                        [style.background]="latestTicket.colorHex"
-                        [style.color]="getReadableTextColor(latestTicket.colorHex)">
-                        #{{ latestTicket.number }}
-                    </div>
-                    } @else {
-                    <div class="window-placeholder">?</div>
-                    }
+                <div class="drum-rammers" aria-hidden="true">
+                    <span class="drum-rammer"></span>
+                    <span class="drum-rammer"></span>
+                    <span class="drum-rammer"></span>
+                    <span class="drum-rammer"></span>
+                    <span class="drum-rammer"></span>
+                    <span class="drum-rammer"></span>
+                    <span class="drum-rammer"></span>
+                    <span class="drum-rammer"></span>
+                    <span class="drum-hub"></span>
                 </div>
             </div>
 

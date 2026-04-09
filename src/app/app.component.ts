@@ -15,9 +15,9 @@ import { TombolaService } from './services/tombola.service';
 })
 export class AppComponent implements OnDestroy {
     private static readonly SPIN_START_MS = 980;
-    private static readonly DRUM_SPIN_DURATION_MS = 1300;
+    private static readonly DRUM_SPIN_DURATION_MS = 3000;
     private static readonly DRAW_RESULT_MS = AppComponent.SPIN_START_MS + AppComponent.DRUM_SPIN_DURATION_MS;
-    private static readonly SPOTLIGHT_DURATION_MS = 1800;
+    private static readonly SPOTLIGHT_DURATION_MS = 4000;
     private static readonly DRAW_FINISH_BUFFER_MS = 420;
 
     private readonly tombolaService = inject(TombolaService);
@@ -29,6 +29,7 @@ export class AppComponent implements OnDestroy {
 
     latestTicket: DrawnTicket | null = null;
     spotlightTicket: DrawnTicket | null = null;
+    spotlightBeeSrc = 'assets/biavler_bien.svg';
     statusText = 'Klar til at trække';
     isDrawing = false;
     isSpinning = false;
@@ -127,6 +128,17 @@ export class AppComponent implements OnDestroy {
         const darkBlue = Math.max(0, rgb.blue - 75);
 
         return `radial-gradient(circle at 40% 30%, rgba(${rgb.red}, ${rgb.green}, ${rgb.blue}, 0.96) 0%, rgba(${rgb.red}, ${rgb.green}, ${rgb.blue}, 0.88) 36%, rgba(${darkRed}, ${darkGreen}, ${darkBlue}, 0.9) 100%)`;
+    }
+
+    onSpotlightBeeError(): void {
+        if (this.spotlightBeeSrc === 'assets/biavler_bien.svg') {
+            this.spotlightBeeSrc = '/assets/biavler_bien.svg';
+            return;
+        }
+
+        if (this.spotlightBeeSrc === '/assets/biavler_bien.svg') {
+            this.spotlightBeeSrc = './assets/biavler_bien.svg';
+        }
     }
 
     private resetVisualState(): void {
